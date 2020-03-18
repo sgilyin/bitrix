@@ -17,19 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once 'config.php';
-
-spl_autoload_register(function ($class) {
-    include 'classes/' . $class . '.class.php';
-});
-
-switch ($_REQUEST['action']) {
-    case "sync":
-        BX24::syncBGBilling($_REQUEST['type']);
-        break;
-    case "chatMessage":
-        BX24::chatMessage($_REQUEST['chat_id'], $_REQUEST['message']);
-        break;
-    default:
-        break;
-}
+define('BGB_HOST', '<Enter here>');
+define('BGB_DB', '<Enter here>');
+define('BGB_USER', '<Enter here>');
+define('BDB_PASSWORD', '<Enter here>');
+define('CRM_HOST', '<Enter here>');
+define('CRM_SECRET', '<Enter here>');

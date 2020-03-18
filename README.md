@@ -1,1 +1,1 @@
-# bitrix_bgbilling
+# Подружим Битрикс24 с BGBilling
