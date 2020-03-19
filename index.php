@@ -23,12 +23,32 @@ spl_autoload_register(function ($class) {
     include 'classes/' . $class . '.class.php';
 });
 
-switch ($_REQUEST['action']) {
-    case "sync":
-        BX24::syncBGBilling($_REQUEST['type']);
+$inputRequest = 0;
+
+switch (filter_input(INPUT_SERVER, 'REQUEST_METHOD')){
+    case 'GET':
+        $inputRequest = INPUT_GET;
         break;
-    case "chatMessage":
-        BX24::chatMessage($_REQUEST['chat_id'], $_REQUEST['message']);
+    case 'POST':
+        $inputRequest = INPUT_POST;
+        break;
+}
+
+switch (filter_input($inputRequest, 'cmd')) {
+    case 'sync':
+        BX24::syncBGBilling(filter_input($inputRequest, 'type'));
+        break;
+    case 'sendMessage':
+        BX24::sendMessage(filter_input($inputRequest, 'dialog_id'), filter_input($inputRequest, 'message'));
+        break;
+    case 'notifyPersonal':
+        BX24::notifyPersonal(filter_input($inputRequest, 'user_id'), filter_input($inputRequest, 'message'));
+        break;
+    case 'notifySystem':
+        BX24::notifySystem(filter_input($inputRequest, 'user_id'), filter_input($inputRequest, 'message'));
+        break;
+    case 'taskDelete':
+        BX24::taskDelete(filter_input($inputRequest, 'taskId'));
         break;
     default:
         break;

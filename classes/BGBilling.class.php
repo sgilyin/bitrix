@@ -26,6 +26,11 @@
  */
 
 class BGBilling {
+    /*
+     * @executeRequest
+     * Executing SQL from BGBilling DB
+     * @return 
+     */
     public static function executeRequest($query) {
         $mysqli = new mysqli(BGB_HOST, BGB_USER, BDB_PASSWORD, BGB_DB);
         $mysqli->set_charset('utf8');
@@ -45,9 +50,14 @@ class BGBilling {
         return static::executeRequest(static::getQuery($contractsType));
     }
 
+    /*
+     * @getQuery
+     * Return string for SQL
+     * @return string
+     */
     private static function getQuery($contractsType) {
         switch($contractsType){
-            case "Ethernet":
+            case 'Ethernet':
                 $query = "
 SELECT tbl_inet_date.cid, CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address', tbl_phone.val AS 'phone', tbl_inet_date.val AS 'date', tbl_fio.val AS 'fio'
 FROM contract AS tbl_contract
@@ -61,7 +71,7 @@ LEFT JOIN address_street AS tbl_street ON (tbl_house.streetid=tbl_street.id)
 WHERE tbl_contract.date2 IS NULL AND tbl_btrx.val IS NULL AND tbl_contract.fc=0 AND tbl_inet_date.val >= CURDATE() AND tbl_contract.gr&(1<<21) > 0 AND NOT tbl_contract.gr&(1<<39) > 0
             ";
                break;
-            case "PON":
+            case 'PON':
                 $query = "
 SELECT tbl_inet_date.cid, CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address', tbl_phone.val AS 'phone', tbl_inet_date.val AS 'date', tbl_fio.val AS 'fio'
 FROM contract AS tbl_contract
@@ -75,7 +85,7 @@ LEFT JOIN address_street AS tbl_street ON (tbl_house.streetid=tbl_street.id)
 WHERE tbl_contract.date2 IS NULL AND tbl_btrx.val IS NULL AND tbl_contract.fc=0 AND tbl_inet_date.val >= CURDATE() AND tbl_contract.gr&(1<<21) > 0 AND tbl_contract.gr&(1<<39) > 0
             ";
                 break;
-            case "TVEnable":
+            case 'TVEnable':
                 $query = "
 SELECT tbl_tv_date.cid, CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address', tbl_phone.val AS 'phone', tbl_tv_date.val AS 'date', tbl_fio.val AS 'fio'
 FROM contract AS tbl_contract
@@ -89,7 +99,7 @@ LEFT JOIN address_street AS tbl_street ON (tbl_house.streetid=tbl_street.id)
 WHERE tbl_contract.date2 IS NULL AND tbl_btrx.val IS NULL AND tbl_contract.fc=0 AND tbl_tv_date.val >= CURDATE() AND tbl_contract.gr&(1<<11) > 0 AND NOT tbl_contract.gr&(1<<39) > 0
             ";
                 break;
-            case "TVDisable":
+            case 'TVDisable':
                 $query = "
 SELECT tbl_contract.id AS 'cid', CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address'
 FROM contract AS tbl_contract

@@ -18,35 +18,31 @@
  */
 
 /**
- * Description of BX24
- * 
- * Class for working whith Bitrix24
+ * Working whith Bitrix24
  *
  * @author sgilyin
  */
 class BX24 {
+    /*
+     * @callMethod
+     * Execute method on Bitrix24
+     * @return json
+     */
     public static function callMethod($bx24Method,$bx24Data) {
-        $curl = curl_init();
-        curl_setopt_array(
-            $curl,
-            array(
-                CURLOPT_POST => TRUE,
-                CURLOPT_RETURNTRANSFER => TRUE,
-                CURLOPT_URL => CRM_HOST.'/rest/1/'.CRM_SECRET.'/'.$bx24Method,
-                CURLOPT_POSTFIELDS => $bx24Data,
-            )
-        );
-        $result_curl = curl_exec($curl);
-        curl_close($curl);
-        $result = json_decode($result_curl);
+        $url = CRM_HOST.'/rest/1/'.CRM_SECRET."/{$bx24Method}";
+        $result = cURL::executeRequest($url, $bx24Data, FALSE);
         return $result;
     }
 
+    /*
+     * @getParams
+     * Return parameters for Bitrix24 task
+     * @return stdObj
+     */
     public static function getParams($type) {
-        $btrx = new stdClass();
         switch ($type) {
-            case "Ethernet":
-                $btrx->title = "Ethernet - Подключение: ";// Название задачи
+            case 'Ethernet':
+                $btrx->title = 'Ethernet - Подключение: ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный Сычев (562)
                 $btrx->accomplices = array(562,724,964);// Соисполнители Сычев (562), Скрынников (724), Касса (964)
                 $btrx->auditors = array(668);// Наблюдатели Козлов (668)
@@ -54,8 +50,8 @@ class BX24 {
                 $btrx->group_id = 18;// Группа "Ethernet"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
-            case "PON":
-                $btrx->title = "PON - Подключение: ";// Название задачи
+            case 'PON':
+                $btrx->title = 'PON - Подключение: ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный Сычев (562)
                 $btrx->accomplices = array(562,724,964);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
                 $btrx->auditors = array(668);// Наблюдатели Козлов (668)
@@ -63,8 +59,8 @@ class BX24 {
                 $btrx->group_id = 22;// Группа "PON"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
-            case "TVEnable":
-                $btrx->title = "TV - Подключение: ";// Название задачи
+            case 'TVEnable':
+                $btrx->title = 'TV - Подключение: ';// Название задачи
                 $btrx->responsible_id = 8;// Ответственный Сычев (562)
                 $btrx->accomplices = array(8);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
                 $btrx->auditors = array(8);// Наблюдатели Козлов (668)
@@ -72,8 +68,8 @@ class BX24 {
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 44;// Поле задачи в Биллинге
                 break;
-            case "TVDisable":
-                $btrx->title = "TV - Отключение: ";// Название задачи
+            case 'TVDisable':
+                $btrx->title = 'TV - Отключение: ';// Название задачи
                 $btrx->responsible_id = 8;// Ответственный Сычев (562)
                 $btrx->accomplices = array(8);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
                 $btrx->auditors = array(8);// Наблюдатели Козлов (668)
@@ -85,6 +81,11 @@ class BX24 {
         return $btrx;
     }
 
+    /*
+     * @syncBGBilling
+     * Get parameters from BGBilling and creating Bitrix24 tasks
+     * @return count created Bitrix24 tasks
+     */
     public static function syncBGBilling($type) {
         $contracts = BGBilling::getContracts($type);
         echo $contracts->num_rows;
@@ -119,13 +120,61 @@ class BX24 {
         }
     }
 
-    public static function chatMessage($chat_id,$message) {
+    /*
+     * @sendMessage
+     * Send personal/chat message in Bitrix24
+     * @return json
+     */
+    public static function sendMessage($dialog_id,$message) {
         $bx24Data = http_build_query(
                 array(
-                    'CHAT_ID' => $chat_id,
+                    'DIALOG_ID' => $dialog_id,
                     'MESSAGE' => $message,
                     )
                 );
         return static::callMethod('im.message.add.json', $bx24Data);
+    }
+
+    /*
+     * @notifyPersonal
+     * Send personal (from admin) notify in Bitrix24
+     * @return json
+     */
+    public static function notifyPersonal($user_id,$message) {
+        $bx24Data = http_build_query(
+                array(
+                    'USER_ID' => $user_id,
+                    'MESSAGE' => $message,
+                    )
+                );
+        return static::callMethod('im.notify.personal.add.json', $bx24Data);
+    }
+
+    /*
+     * @notifySystem
+     * Send personal (from system) notify in Bitrix24
+     * @return json
+     */
+    public static function notifySystem($user_id,$message) {
+        $bx24Data = http_build_query(
+                array(
+                    'USER_ID' => $user_id,
+                    'MESSAGE' => $message,
+                    )
+                );
+        return static::callMethod('im.notify.system.add.json', $bx24Data);
+    }
+
+    /*
+     * @taskDelete
+     * Delete task in Bitrix24
+     */
+    public static function taskDelete($taskId) {
+        $bx24Data = http_build_query(
+                array(
+                    'taskId' => $taskId,
+                    )
+                );
+        return static::callMethod('tasks.task.delete.json', $bx24Data);
     }
 }
