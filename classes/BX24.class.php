@@ -86,7 +86,7 @@ class BX24 {
      * Get parameters from BGBilling and creating Bitrix24 tasks
      * @return count created Bitrix24 tasks
      */
-    public static function syncBGBilling($type) {
+    public function syncBGBilling($type) {
         $contracts = BGBilling::getContracts($type);
         echo $contracts->num_rows;
         if ($contracts->num_rows>0){
@@ -110,7 +110,7 @@ class BX24 {
                         )
                     )
                 );
-                $bx_task = static::callMethod('tasks.task.add.json', $bx24Data);
+                $bx_task = json_decode(static::callMethod('tasks.task.add.json', $bx24Data));
                 $task = $bx_task->result->task->id;
                 $tasks[$contract->cid] = $task;
             }
@@ -176,5 +176,79 @@ class BX24 {
                     )
                 );
         return static::callMethod('tasks.task.delete.json', $bx24Data);
+    }
+
+    /*
+     * @taskComplete
+     * Complete task in Bitrix24
+     */
+    public static function taskComplete($taskId) {
+        $bx24Data = http_build_query(
+                array(
+                    'taskId' => $taskId,
+                    )
+                );
+        return static::callMethod('tasks.task.complete.json', $bx24Data);
+    }
+
+    /*
+     * @taskComment
+     * Add comment to task in Bitrix24
+     */
+    public static function taskComment($taskId,$message) {
+        $bx24Data = http_build_query(
+                array(
+                    $taskId,
+                    array(
+                       'POST_MESSAGE' => $message,
+                        ),
+                    )
+                );
+        return static::callMethod('task.commentitem.add.json', $bx24Data);
+    }
+
+    /*
+     * @tasksDeleteOld
+     * Delete old tasks (6 months) in Bitrix24
+     */
+    public function tasksDeleteOld() {
+        $bx24Data = http_build_query(
+                array(
+                    'filter' => array(
+                        'REAL_STATUS' => 5,
+                        '<CLOSED_DATE' => date("Y-m-d",strtotime('Today -6 months')),
+                        ),
+                    'select' => array('ID'),
+                    'limit' => 1000,
+                    )
+                );
+        $btrx_task = json_decode(static::callMethod('tasks.task.list.json',$bx24Data));
+        echo $btrx_task->total;
+        for ($i = 0; $i < $btrx_task->total; $i++){
+            if ($btrx_task->result->tasks[$i]->id){
+                static::taskDelete($btrx_task->result->tasks[$i]->id);
+            }
+        }
+        if ($i) {
+            static::sendMessage('chat7344',"Удалено {$i} задач по сроку закрытия 6 месяцев");
+        }
+    }
+
+    public function tasksCheckExpired() {
+        $bx24Data = http_build_query(
+                array(
+                    'ORDER' => array(
+                        'DEADLINE' => 'desc',
+                        ),
+                    'FILTER' => array(
+                        'STATUS' => '-1',
+                        ),
+                    )
+                );
+        $btrx_task = json_decode(static::callMethod('task.item.list.json',$bx24Data));
+        echo $btrx_task->total;
+        for ($i = 0; $i < $btrx_task->total; $i++){
+            static::sendMessage($btrx_task->result[$i]->RESPONSIBLE_ID,"Просроченная задача ".CRM_HOST."/company/personal/user/{$btrx_task->result[$i]->RESPONSIBLE_ID}/tasks/task/view/{$btrx_task->result[$i]->ID}/");
+        }
     }
 }

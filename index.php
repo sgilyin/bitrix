@@ -38,6 +38,12 @@ switch (filter_input($inputRequest, 'cmd')) {
     case 'sync':
         BX24::syncBGBilling(filter_input($inputRequest, 'type'));
         break;
+     case 'tasksDeleteOld':
+        BX24::tasksDeleteOld();
+        break;
+    case 'tasksCheckExpired':
+        BX24::tasksCheckExpired();
+        break;
     case 'sendMessage':
         BX24::sendMessage(filter_input($inputRequest, 'dialog_id'), filter_input($inputRequest, 'message'));
         break;
@@ -46,6 +52,12 @@ switch (filter_input($inputRequest, 'cmd')) {
         break;
     case 'notifySystem':
         BX24::notifySystem(filter_input($inputRequest, 'user_id'), filter_input($inputRequest, 'message'));
+        break;
+    case 'taskComment':
+        BX24::taskComment(filter_input($inputRequest, 'taskId'), filter_input($inputRequest, 'message'));
+        break;
+    case 'taskComplete':
+        BX24::taskComplete(filter_input($inputRequest, 'taskId'));
         break;
     case 'taskDelete':
         BX24::taskDelete(filter_input($inputRequest, 'taskId'));
