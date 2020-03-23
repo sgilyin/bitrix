@@ -42,7 +42,7 @@ class BX24 {
     public static function getParams($type) {
         switch ($type) {
             case 'Ethernet':
-                $btrx->title = 'Ethernet - Подключение: ';// Название задачи
+                $btrx->title = ' | Ethernet | Подключение';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -51,7 +51,7 @@ class BX24 {
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'PON':
-                $btrx->title = 'PON - Подключение: ';// Название задачи
+                $btrx->title = ' | PON | Подключение';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -60,7 +60,7 @@ class BX24 {
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'TVEnable':
-                $btrx->title = 'TV - Подключение: ';// Название задачи
+                $btrx->title = ' | TV | Подключение';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(6880,6906,6908);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -69,7 +69,7 @@ class BX24 {
                 $btrx->pid = 44;// Поле задачи в Биллинге
                 break;
             case 'TVDisable':
-                $btrx->title = 'TV - Отключение: ';// Название задачи
+                $btrx->title = ' | TV | Отключение';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(6880,6910,6912);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -96,7 +96,7 @@ class BX24 {
                 $bx24Data = http_build_query(
                     array(
                         'fields' => array(
-                            'TITLE' => "{$btrx->title}{$contract->address}",
+                            'TITLE' => "{$contract->address}{$btrx->title}",
                             'CREATED_BY' => 1,
                             'RESPONSIBLE_ID' => $btrx->responsible_id,
                             'ACCOMPLICES' => $btrx->accomplices,
