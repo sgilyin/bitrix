@@ -43,36 +43,36 @@ class BX24 {
         switch ($type) {
             case 'Ethernet':
                 $btrx->title = 'Ethernet - Подключение: ';// Название задачи
-                $btrx->responsible_id = 562;// Ответственный Сычев (562)
-                $btrx->accomplices = array(562,724,964);// Соисполнители Сычев (562), Скрынников (724), Касса (964)
-                $btrx->auditors = array(668);// Наблюдатели Козлов (668)
+                $btrx->responsible_id = 562;// Ответственный
+                $btrx->accomplices = array(562,724,964);// Соисполнители
+                $btrx->auditors = array(668);// Наблюдатели
                 $btrx->tags = array('Подключение','Ethernet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'PON':
                 $btrx->title = 'PON - Подключение: ';// Название задачи
-                $btrx->responsible_id = 562;// Ответственный Сычев (562)
-                $btrx->accomplices = array(562,724,964);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
-                $btrx->auditors = array(668);// Наблюдатели Козлов (668)
+                $btrx->responsible_id = 562;// Ответственный
+                $btrx->accomplices = array(562,724,964);// Соисполнители
+                $btrx->auditors = array(668);// Наблюдатели
                 $btrx->tags = array('Подключение','PON');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'TVEnable':
                 $btrx->title = 'TV - Подключение: ';// Название задачи
-                $btrx->responsible_id = 8;// Ответственный Сычев (562)
-                $btrx->accomplices = array(8);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
-                $btrx->auditors = array(8);// Наблюдатели Козлов (668)
+                $btrx->responsible_id = 6880;// Ответственный
+                $btrx->accomplices = array(6880,6906,6908);// Соисполнители
+                $btrx->auditors = array(668);// Наблюдатели
                 $btrx->tags = array('Подключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 44;// Поле задачи в Биллинге
                 break;
             case 'TVDisable':
                 $btrx->title = 'TV - Отключение: ';// Название задачи
-                $btrx->responsible_id = 8;// Ответственный Сычев (562)
-                $btrx->accomplices = array(8);// Соисполнители Осипов (18), Сычев (562), Скрынников (724), Касса (964)
-                $btrx->auditors = array(8);// Наблюдатели Козлов (668)
+                $btrx->responsible_id = 6880;// Ответственный
+                $btrx->accomplices = array(6880,6910,6912);// Соисполнители
+                $btrx->auditors = array(668);// Наблюдатели
                 $btrx->tags = array('Отключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 45;// Поле задачи в Биллинге
