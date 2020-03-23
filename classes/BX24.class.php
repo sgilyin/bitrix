@@ -42,7 +42,7 @@ class BX24 {
     public static function getParams($type) {
         switch ($type) {
             case 'Ethernet':
-                $btrx->title = 'Подключение | Ethernet | ';// Название задачи
+                $btrx->title = 'Eth | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -51,7 +51,7 @@ class BX24 {
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'PON':
-                $btrx->title = 'Подключение | PON | ';// Название задачи
+                $btrx->title = 'PON | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -60,7 +60,7 @@ class BX24 {
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
             case 'TVEnable':
-                $btrx->title = 'Подключение | TV | ';// Название задачи
+                $btrx->title = 'TV | Подключение | ';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(6880,6906,6908);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
@@ -69,7 +69,7 @@ class BX24 {
                 $btrx->pid = 44;// Поле задачи в Биллинге
                 break;
             case 'TVDisable':
-                $btrx->title = 'Отключение | TV | ';// Название задачи
+                $btrx->title = 'TV | Отключение | ';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(6880,6910,6912);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
