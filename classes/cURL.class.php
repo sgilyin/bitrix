@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 sgilyin
+ * Copyright (C) 2020 Sergey Ilyin <developer@ilyins.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,23 @@
  */
 
 /**
- * Description of cURL
- * 
  * Class for curl
- *
- * @author sgilyin
+ * 
+ * @author Sergey Ilyin <developer@ilyins.ru>
  */
+
 class cURL {
-    /*
-     * @executeRequest
-     * Execute request to URL whith parameters
+
+    /**
+     * Execute request to some server
+     * 
+     * @param String $url
+     * @param Array $post
+     * @param Array $headers
      * @return response
      */
-    public static function executeRequest($url,$post,$headers) {
+    public static function executeRequest($url, $post, $headers) {
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         if($post){

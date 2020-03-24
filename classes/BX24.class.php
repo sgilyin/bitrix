@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2020 sgilyin
+ * Copyright (C) 2020 Sergey Ilyin <developer@ilyins.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,28 +18,35 @@
  */
 
 /**
- * Working whith Bitrix24
- *
- * @author sgilyin
+ * Class for Bitrix24
+ * 
+ * @author Sergey Ilyin <developer@ilyins.ru>
  */
+
 class BX24 {
-    /*
-     * @callMethod
+
+    /**
      * Execute method on Bitrix24
+     * 
+     * @param String $bx24Method
+     * @param Array $bx24Data
      * @return json
      */
-    public static function callMethod($bx24Method,$bx24Data) {
+    public static function callMethod($bx24Method, $bx24Data) {
+
         $url = CRM_HOST.'/rest/1/'.CRM_SECRET."/{$bx24Method}";
         $result = cURL::executeRequest($url, $bx24Data, FALSE);
         return $result;
     }
 
-    /*
-     * @getParams
-     * Return parameters for Bitrix24 task
-     * @return stdObj
+    /**
+     * Get params for task in Bitrix24
+     * 
+     * @param String $type
+     * @return Object
      */
     public static function getParams($type) {
+
         switch ($type) {
             case 'Ethernet':
                 $btrx->title = 'Eth | Подключение | ';// Название задачи
@@ -62,7 +69,7 @@ class BX24 {
             case 'TVEnable':
                 $btrx->title = 'TV | Подключение | ';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
-                $btrx->accomplices = array(6880,6906,6908);// Соисполнители
+                $btrx->accomplices = array(964,6880,6906,6908);// Соисполнители
                 $btrx->auditors = array(668);// Наблюдатели
                 $btrx->tags = array('Подключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
@@ -81,12 +88,13 @@ class BX24 {
         return $btrx;
     }
 
-    /*
-     * @syncBGBilling
-     * Get parameters from BGBilling and creating Bitrix24 tasks
-     * @return count created Bitrix24 tasks
+    /**
+     * Synchronize BGBilling with Bitrix24
+     * 
+     * @param String $type
      */
     public function syncBGBilling($type) {
+
         $contracts = BGBilling::getContracts($type);
         echo $contracts->num_rows;
         if ($contracts->num_rows>0){
@@ -120,12 +128,15 @@ class BX24 {
         }
     }
 
-    /*
-     * @sendMessage
-     * Send personal/chat message in Bitrix24
+    /**
+     * Send message to Bitrix24
+     * 
+     * @param String $dialog_id
+     * @param String $message
      * @return json
      */
-    public static function sendMessage($dialog_id,$message) {
+    public static function sendMessage($dialog_id, $message) {
+
         $bx24Data = http_build_query(
                 array(
                     'DIALOG_ID' => $dialog_id,
@@ -135,12 +146,14 @@ class BX24 {
         return static::callMethod('im.message.add.json', $bx24Data);
     }
 
-    /*
-     * @notifyPersonal
-     * Send personal (from admin) notify in Bitrix24
+    /**
+     * Send personal notify to Bitrix24 from admin
+     * 
+     * @param Integer $user_id
+     * @param String $message
      * @return json
      */
-    public static function notifyPersonal($user_id,$message) {
+    public static function notifyPersonal($user_id, $message) {
         $bx24Data = http_build_query(
                 array(
                     'USER_ID' => $user_id,
@@ -150,12 +163,14 @@ class BX24 {
         return static::callMethod('im.notify.personal.add.json', $bx24Data);
     }
 
-    /*
-     * @notifySystem
-     * Send personal (from system) notify in Bitrix24
+    /**
+     * Send personal notify to Bitrix24 from system
+     * 
+     * @param Integer $user_id
+     * @param String $message
      * @return json
      */
-    public static function notifySystem($user_id,$message) {
+    public static function notifySystem($user_id, $message) {
         $bx24Data = http_build_query(
                 array(
                     'USER_ID' => $user_id,
@@ -165,9 +180,11 @@ class BX24 {
         return static::callMethod('im.notify.system.add.json', $bx24Data);
     }
 
-    /*
-     * @taskDelete
+    /**
      * Delete task in Bitrix24
+     * 
+     * @param Integer $taskId
+     * @return json
      */
     public static function taskDelete($taskId) {
         $bx24Data = http_build_query(
@@ -178,9 +195,11 @@ class BX24 {
         return static::callMethod('tasks.task.delete.json', $bx24Data);
     }
 
-    /*
-     * @taskComplete
-     * Complete task in Bitrix24
+    /**
+     * Set status "Complete" in Bitrix24
+     * 
+     * @param Integer $taskId
+     * @return json
      */
     public static function taskComplete($taskId) {
         $bx24Data = http_build_query(
@@ -191,11 +210,14 @@ class BX24 {
         return static::callMethod('tasks.task.complete.json', $bx24Data);
     }
 
-    /*
-     * @taskComment
+    /**
      * Add comment to task in Bitrix24
+     * 
+     * @param Integer $taskId
+     * @param String $message
+     * @return json
      */
-    public static function taskComment($taskId,$message) {
+    public static function taskComment($taskId, $message) {
         $bx24Data = http_build_query(
                 array(
                     $taskId,
@@ -207,9 +229,8 @@ class BX24 {
         return static::callMethod('task.commentitem.add.json', $bx24Data);
     }
 
-    /*
-     * @tasksDeleteOld
-     * Delete old tasks (6 months) in Bitrix24
+    /**
+     * Delete old tasks
      */
     public function tasksDeleteOld() {
         $bx24Data = http_build_query(
@@ -234,6 +255,9 @@ class BX24 {
         }
     }
 
+    /**
+     * Check expired task and send notify to responsible user
+     */
     public function tasksCheckExpired() {
         $bx24Data = http_build_query(
                 array(

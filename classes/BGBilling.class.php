@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Copyright (C) 2020 sgilyin
+ * Copyright (C) 2020 Sergey Ilyin <developer@ilyins.ru>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,24 +18,26 @@
  */
 
 /**
- * Description of BillingDatabase
+ * Class for BGBilling
  * 
- * Class for working whith BGBilling Database
- *
- * @author sgilyin
+ * @author Sergey Ilyin <developer@ilyins.ru>
  */
 
 class BGBilling {
-    /*
-     * @executeRequest
-     * Executing SQL from BGBilling DB
-     * @return 
+
+    /**
+     * Execute request to BGBilling
+     * 
+     * @param String $query
+     * @return Object
      */
     public static function executeRequest($query) {
+
         $mysqli = new mysqli(BGB_HOST, BGB_USER, BDB_PASSWORD, BGB_DB);
         $mysqli->set_charset('utf8');
         $result = $mysqli->query($query);
         $mysqli->close();
+
         switch (strtok($query," ")){
             case 'INSERT':
                 return $mysqli->errno;
@@ -46,14 +48,22 @@ class BGBilling {
         }
     }
 
+    /**
+     * Get contracts from BGBilling
+     * 
+     * @param String $contractsType
+     * @return Object
+     */
     public static function getContracts($contractsType) {
+
         return static::executeRequest(static::getQuery($contractsType));
     }
 
-    /*
-     * @getQuery
-     * Return string for SQL
-     * @return string
+    /**
+     * Get query string for execute
+     * 
+     * @param String $contractsType
+     * @return String
      */
     private static function getQuery($contractsType) {
         switch($contractsType){
@@ -112,7 +122,7 @@ WHERE tbl_btrx.val IS NULL AND tbl_contract.fc=0 AND tbl_contract.gr&(1<<17) > 0
                 break;
             default :
                 break;
-    }
-    return $query;
+        }
+        return $query;
     }
 }
