@@ -52,7 +52,7 @@ class BX24 {
                 $btrx->title = 'Eth | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
-                $btrx->auditors = array(668);// Наблюдатели
+                $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','Ethernet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
                 $btrx->pid = 43;// Поле задачи в Биллинге
@@ -61,7 +61,7 @@ class BX24 {
                 $btrx->title = 'PON | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
-                $btrx->auditors = array(668);// Наблюдатели
+                $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','PON');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
                 $btrx->pid = 43;// Поле задачи в Биллинге
@@ -70,7 +70,7 @@ class BX24 {
                 $btrx->title = 'TV | Подключение | ';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(964,6880,6906,6908);// Соисполнители
-                $btrx->auditors = array(668);// Наблюдатели
+                $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 44;// Поле задачи в Биллинге
@@ -79,7 +79,7 @@ class BX24 {
                 $btrx->title = 'TV | Отключение | ';// Название задачи
                 $btrx->responsible_id = 6880;// Ответственный
                 $btrx->accomplices = array(6880,6910,6912);// Соисполнители
-                $btrx->auditors = array(668);// Наблюдатели
+                $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Отключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 45;// Поле задачи в Биллинге
