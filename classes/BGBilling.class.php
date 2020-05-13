@@ -111,7 +111,7 @@ WHERE tbl_contract.date2 IS NULL AND tbl_btrx.val IS NULL AND tbl_contract.fc=0 
                 break;
             case 'TVDisable':
                 $query = "
-SELECT tbl_contract.id AS 'cid', CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address'
+SELECT tbl_contract.id AS 'cid', CONCAT(tbl_street.title, ' д. ', tbl_house.house, CONCAT_WS( ' кв. ',tbl_house.frac, IF(tbl_flat.flat='',NULL,tbl_flat.flat))) AS 'address', CURRENT_DATE() + INTERVAL 7 DAY AS 'date'
 FROM contract AS tbl_contract
 LEFT JOIN contract_parameter_type_1 AS tbl_btrx ON (tbl_contract.id=tbl_btrx.cid) AND (tbl_btrx.pid=45)
 LEFT JOIN contract_parameter_type_2 AS tbl_flat ON (tbl_contract.id=tbl_flat.cid)
