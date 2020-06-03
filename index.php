@@ -40,6 +40,7 @@ switch (filter_input($inputRequest, 'cmd')) {
         BX24::tasksDeleteOld();
         break;
     case 'tasksCheckExpired':
+        file_put_contents('request.log',PHP_EOL.date('Y-m-d H:i:s')." | ".serialize(filter_input($inputRequest, 'cmd')), FILE_APPEND);
         BX24::tasksCheckExpired();
         break;
     case 'sendMessage':
