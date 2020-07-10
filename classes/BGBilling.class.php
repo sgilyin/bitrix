@@ -33,7 +33,7 @@ class BGBilling {
      */
     public static function executeRequest($query) {
 
-        $mysqli = new mysqli(BGB_HOST, BGB_USER, BDB_PASSWORD, BGB_DB);
+        $mysqli = new mysqli(BGB_HOST, BGB_USER, BGB_PASSWORD, BGB_DB);
         $mysqli->set_charset('utf8');
         $result = $mysqli->query($query);
         $mysqli->close();

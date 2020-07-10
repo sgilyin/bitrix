@@ -20,6 +20,6 @@
 define('BGB_HOST', '<Enter here>');
 define('BGB_DB', '<Enter here>');
 define('BGB_USER', '<Enter here>');
-define('BDB_PASSWORD', '<Enter here>');
+define('BGB_PASSWORD', '<Enter here>');
 define('CRM_HOST', '<Enter here>');
 define('CRM_SECRET', '<Enter here>');
