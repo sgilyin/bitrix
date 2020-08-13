@@ -53,7 +53,7 @@ class BX24 {
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
-                $btrx->tags = array('Подключение','Ethernet');// Теги задачи
+                $btrx->tags = array('Подключение','Ethernet','Internet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
@@ -62,7 +62,7 @@ class BX24 {
                 $btrx->responsible_id = 562;// Ответственный
                 $btrx->accomplices = array(562,724,964);// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
-                $btrx->tags = array('Подключение','PON');// Теги задачи
+                $btrx->tags = array('Подключение','PON','Internet');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
                 $btrx->pid = 43;// Поле задачи в Биллинге
                 break;
