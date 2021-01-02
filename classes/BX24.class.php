@@ -274,6 +274,7 @@ class BX24 {
         echo $btrx_task->total;
         for ($i = 0; $i < $btrx_task->total; $i++){
             static::sendMessage($btrx_task->result[$i]->RESPONSIBLE_ID,"Просроченная задача ".CRM_HOST."/company/personal/user/{$btrx_task->result[$i]->RESPONSIBLE_ID}/tasks/task/view/{$btrx_task->result[$i]->ID}/");
+            static::sendMessage(668,"Просроченная задача ".CRM_HOST."/company/personal/user/668/tasks/task/view/{$btrx_task->result[$i]->ID}/");
         }
     }
 }
