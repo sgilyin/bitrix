@@ -46,6 +46,7 @@ class BX24 {
      * @return Object
      */
     public static function getParams($type) {
+        $btrx = new stdClass();
 
         switch ($type) {
             case 'Ethernet':
