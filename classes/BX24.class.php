@@ -52,7 +52,7 @@ class BX24 {
             case 'Ethernet':
                 $btrx->title = 'Eth | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
-                $btrx->accomplices = array(562,724,964);// Соисполнители
+                $btrx->accomplices = array(562,964,6908);// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','Ethernet','Internet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
@@ -61,7 +61,7 @@ class BX24 {
             case 'PON':
                 $btrx->title = 'PON | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
-                $btrx->accomplices = array(562,724,964);// Соисполнители
+                $btrx->accomplices = array(562,964);// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','PON','Internet');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
