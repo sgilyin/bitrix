@@ -61,7 +61,7 @@ class BX24 {
             case 'PON':
                 $btrx->title = 'PON | Подключение | ';// Название задачи
                 $btrx->responsible_id = 562;// Ответственный
-                $btrx->accomplices = array(562,964);// Соисполнители
+                $btrx->accomplices = array(562,964,6904);// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','PON','Internet');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
