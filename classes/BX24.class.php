@@ -57,6 +57,7 @@ class BX24 {
                 $btrx->tags = array('Подключение','Ethernet','Internet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
                 $btrx->pid = 43;// Поле задачи в Биллинге
+                $btrx->deadline = 'Y';
                 break;
             case 'PON':
                 $btrx->title = 'PON | Подключение | ';// Название задачи
@@ -66,6 +67,7 @@ class BX24 {
                 $btrx->tags = array('Подключение','PON','Internet');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
                 $btrx->pid = 43;// Поле задачи в Биллинге
+                $btrx->deadline = 'N';
                 break;
             case 'TVEnable':
                 $btrx->title = 'TV | Подключение | ';// Название задачи
@@ -75,6 +77,7 @@ class BX24 {
                 $btrx->tags = array('Подключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 44;// Поле задачи в Биллинге
+                $btrx->deadline = 'Y';
                 break;
             case 'TVDisable':
                 $btrx->title = 'TV | Отключение | ';// Название задачи
@@ -84,6 +87,7 @@ class BX24 {
                 $btrx->tags = array('Отключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 45;// Поле задачи в Биллинге
+                $btrx->deadline = 'Y';
                 break;
         }
         return $btrx;
@@ -116,7 +120,7 @@ class BX24 {
                             'START_DATE_PLAN' => date('c',strtotime($contract->date.' 08:00:00')),
                             'END_DATE_PLAN' => date('c',strtotime($contract->date.' 17:00:00')),
                             'DESCRIPTION' => "ФИО: {$contract->fio}<br>Телефон: <a href='tel:{$contract->phone}'>{$contract->phone}</a><br>Договор в биллинге: {$contract->cid}",
-                            'ALLOW_CHANGE_DEADLINE' => 'Y',
+                            'ALLOW_CHANGE_DEADLINE' => $btrx->deadline,
                         )
                     )
                 );
