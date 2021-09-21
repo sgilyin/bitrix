@@ -119,7 +119,7 @@ class BX24 {
                             'DEADLINE' => date('c',strtotime($contract->date.' 18:00:00')),
                             'START_DATE_PLAN' => date('c',strtotime($contract->date.' 08:00:00')),
                             'END_DATE_PLAN' => date('c',strtotime($contract->date.' 17:00:00')),
-                            'DESCRIPTION' => "ФИО: {$contract->fio}<br>Телефон: <a href='tel:{$contract->phone}'>{$contract->phone}</a><br>Договор в биллинге: {$contract->cid}",
+                            'DESCRIPTION' => "ФИО: {$contract->fio}\nТелефон: [URL=tel:{$contract->phone}]{$contract->phone}[/URL]\nДоговор в биллинге: {$contract->cid}",
                             'ALLOW_CHANGE_DEADLINE' => $btrx->deadline,
                         )
                     )
