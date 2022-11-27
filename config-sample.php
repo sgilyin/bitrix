@@ -23,3 +23,12 @@ define('BGB_USER', '<Enter here>');
 define('BGB_PASSWORD', '<Enter here>');
 define('CRM_HOST', '<Enter here>');
 define('CRM_SECRET', '<Enter here>');
+
+define('ETH_RESPONSIBLE', array('<Enter here>'));// Ответственный Ethernet
+define('ETH_ACCOMPLICES', array('<Enter here>'));// Соисполнители Ethernet
+
+define('PON_RESPONSIBLE', array('<Enter here>'));// Ответственный PON
+define('PON_ACCOMPLICES', array('<Enter here>'));// Соисполнители PON
+
+define('TV_RESPONSIBLE', array('<Enter here>'));// Ответственный TV
+define('TV_ACCOMPLICES', array('<Enter here>'));// Соисполнители TV
