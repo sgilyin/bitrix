@@ -51,8 +51,8 @@ class BX24 {
         switch ($type) {
             case 'Ethernet':
                 $btrx->title = 'Eth | Подключение | ';// Название задачи
-                $btrx->responsible_id = 562;// Ответственный
-                $btrx->accomplices = array(562,964);// Соисполнители
+                $btrx->responsible_id = ETH_RESPONSIBLE;// Ответственный
+                $btrx->accomplices = ETH_ACCOMPLICES;// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','Ethernet','Internet');// Теги задачи
                 $btrx->group_id = 18;// Группа "Ethernet"
@@ -61,8 +61,8 @@ class BX24 {
                 break;
             case 'PON':
                 $btrx->title = 'PON | Подключение | ';// Название задачи
-                $btrx->responsible_id = 562;// Ответственный
-                $btrx->accomplices = array(562,964,6904);// Соисполнители
+                $btrx->responsible_id = PON_RESPONSIBLE;// Ответственный
+                $btrx->accomplices = PON_ACCOMPLICES;// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','PON','Internet');// Теги задачи
                 $btrx->group_id = 22;// Группа "PON"
@@ -71,13 +71,13 @@ class BX24 {
                 break;
             case 'TVEnable':
                 $btrx->title = 'TV | Подключение | ';// Название задачи
-                $btrx->responsible_id = 6880;// Ответственный
-                $btrx->accomplices = array(964,6880,6906,6908);// Соисполнители
+                $btrx->responsible_id = TV_RESPONSIBLE;// Ответственный
+                $btrx->accomplices = TV_ACCOMPLICES;// Соисполнители
                 $btrx->auditors = array(668,6768);// Наблюдатели
                 $btrx->tags = array('Подключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 44;// Поле задачи в Биллинге
-                $btrx->deadline = 'Y';
+                $btrx->deadline = 'N';
                 break;
             case 'TVDisable':
                 $btrx->title = 'TV | Отключение | ';// Название задачи
@@ -87,7 +87,7 @@ class BX24 {
                 $btrx->tags = array('Отключение','TV');// Теги задачи
                 $btrx->group_id = 24;// Группа "TV"
                 $btrx->pid = 45;// Поле задачи в Биллинге
-                $btrx->deadline = 'Y';
+                $btrx->deadline = 'N';
                 break;
         }
         return $btrx;
