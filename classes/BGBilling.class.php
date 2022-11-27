@@ -106,7 +106,7 @@ LEFT JOIN contract_parameter_type_1 AS tbl_fio ON (tbl_contract.id=tbl_fio.cid) 
 LEFT JOIN contract_parameter_type_2 AS tbl_flat ON (tbl_contract.id=tbl_flat.cid)
 LEFT JOIN address_house AS tbl_house ON (tbl_flat.hid=tbl_house.id)
 LEFT JOIN address_street AS tbl_street ON (tbl_house.streetid=tbl_street.id)
-WHERE tbl_contract.date2 IS NULL AND (tbl_btrx.val IS NULL OR tbl_btrx.val='') AND tbl_contract.fc=0 AND tbl_tv_date.val >= CURDATE() AND tbl_contract.gr&(1<<11) > 0 AND NOT tbl_contract.gr&(1<<39) > 0
+WHERE tbl_contract.date2 IS NULL AND (tbl_btrx.val IS NULL OR tbl_btrx.val='') AND tbl_contract.fc=0 AND tbl_tv_date.val >= CURDATE() AND tbl_contract.gr&(1<<15) > 0 AND NOT tbl_contract.gr&(1<<39) > 0
             ";
                 break;
             case 'TVDisable':
